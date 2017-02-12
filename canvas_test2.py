@@ -54,11 +54,7 @@ class Paint(object):
         self.activate_button(self.eraser_button, eraser_mode=True)
 
     def erase_all(self):
-        old_color = self.color
-        self.c = Canvas(self.root, bg='white', width=1200, height=600)
-        self.c.grid(row=1, columnspan=5)
-        self.setup()
-        self.color = old_color
+        self.c.delete("all")
 
 
     #TODO: undo and redo
