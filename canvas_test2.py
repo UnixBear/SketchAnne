@@ -62,7 +62,7 @@ class Paint(object):
         self.c.delete("all")
 
     def submit_button(self):
-        filedialog.asksaveasfile(filetypes = (("PNG", "*.png*")))
+        filedialog.asksaveasfile(mode='w', defaultextension=".png",filetypes=(('Portable Network Graphics','*.png'),))
 
 
     #TODO: undo and redo
