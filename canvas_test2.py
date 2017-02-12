@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
+import tkinter as tk
 from tkinter import *
 from tkinter.colorchooser import *
+from tkinter.filedialog import *
 
 class Paint(object):
 
@@ -9,7 +11,7 @@ class Paint(object):
     DEFAULT_COLOR = 'black'
 
     def __init__(self):
-        self.root = Tk()
+        self.root = tk.Tk()
 
         self.brush_button = Button(self.root, text='brush', command=self.use_brush)
         self.brush_button.grid(row=0, column=0)
@@ -23,11 +25,14 @@ class Paint(object):
         self.eraser_button = Button(self.root, text='erase all', command=self.erase_all)
         self.eraser_button.grid(row=0, column=3)
 
+        self.submit_button = Button(self.root, text='submit!', command=self.submit_button)
+        self.submit_button.grid(row=0, column=4)
+
         self.choose_size_button = Scale(self.root, from_=1, to=50, orient=HORIZONTAL)
-        self.choose_size_button.grid(row=0, column=4)
+        self.choose_size_button.grid(row=0, column=5)
 
         self.c = Canvas(self.root, bg='white', width=1200, height=600)
-        self.c.grid(row=1, columnspan=5)
+        self.c.grid(row=1, columnspan=6)
 
         self.setup()
         self.root.mainloop()
@@ -55,6 +60,9 @@ class Paint(object):
 
     def erase_all(self):
         self.c.delete("all")
+
+    def submit_button(self):
+        filedialog.asksavefilename(filetyes = (("PNG", "*.png*")))
 
 
     #TODO: undo and redo
