@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import tkinter as tk
+import os
 from tkinter import *
 from tkinter.colorchooser import *
 from tkinter import filedialog
@@ -62,7 +63,8 @@ class Paint(object):
         self.c.delete("all")
 
     def submit_button(self):
-        filedialog.asksaveasfile(mode='w', defaultextension=".png",filetypes=(('Portable Network Graphics','*.png'),))
+        os.system("screencapture screen.png")
+        #filedialog.asksaveasfile(mode='w', defaultextension=".png",filetypes=(('Portable Network Graphics','*.png'),))
 
 
     #TODO: undo and redo
