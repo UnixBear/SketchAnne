@@ -12,18 +12,21 @@ class Paint(object):
         self.root = Tk()
 
         self.brush_button = Button(self.root, text='brush', command=self.use_brush)
-        self.brush_button.grid(row=0, column=1)
+        self.brush_button.grid(row=0, column=0)
 
         self.color_button = Button(self.root, text='color', command=self.choose_color)
-        self.color_button.grid(row=0, column=2)
+        self.color_button.grid(row=0, column=1)
 
         self.eraser_button = Button(self.root, text='eraser', command=self.use_eraser)
+        self.eraser_button.grid(row=0, column=2)
+
+        self.eraser_button = Button(self.root, text='erase all', command=self.erase_all)
         self.eraser_button.grid(row=0, column=3)
 
         self.choose_size_button = Scale(self.root, from_=1, to=10, orient=HORIZONTAL)
         self.choose_size_button.grid(row=0, column=4)
 
-        self.c = Canvas(self.root, bg='white', width=600, height=600)
+        self.c = Canvas(self.root, bg='white', width=1200, height=600)
         self.c.grid(row=1, columnspan=5)
 
         self.setup()
@@ -50,9 +53,15 @@ class Paint(object):
     def use_eraser(self):
         self.activate_button(self.eraser_button, eraser_mode=True)
 
-    #TODO: reset canvas
+    def erase_all(self):
+        old_color = self.color
+        self.c = Canvas(self.root, bg='white', width=1200, height=600)
+        self.c.grid(row=1, columnspan=5)
+        self.setup()
+        self.color = old_color
+
+
     #TODO: undo and redo
-    #TODO: draw triangle, rectangle, oval, text
 
     def activate_button(self, some_button, eraser_mode=False):
         self.active_button.config(relief=RAISED)
