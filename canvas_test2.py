@@ -3,7 +3,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter.colorchooser import *
-from tkinter.filedialog import *
+from tkinter import filedialog
 
 class Paint(object):
 
