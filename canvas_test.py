@@ -5,7 +5,7 @@ from tkinter import *
 from tkinter.colorchooser import *
 from tkinter import filedialog
 import os
-from PIL import ImageGrab
+import pyscreenshot as ImageGrab
 from subprocess import call
 
 
@@ -73,9 +73,9 @@ class Paint(object):
 
     def submit_button(self):
         self.getter(self.c)
-        detect_base_dir = "/Users/valentin/PycharmProjects/DoodleDetection"
+        detect_base_dir = "/home/morpheus/Projects/SketchAnne/"
         call(['python', os.path.join(detect_base_dir, 'car_detect.py'),
-              '/Users/valentin/PycharmProjects/SketchAnne/output.png'])
+              '/home/morpheus/Projects/SketchAnne/output.png'])
 
     # TODO: undo and redo
 
