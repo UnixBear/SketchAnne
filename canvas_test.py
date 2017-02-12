@@ -5,9 +5,11 @@ from tkinter import *
 from tkinter.colorchooser import *
 from tkinter import filedialog
 import os
+from PIL import ImageGrab
+from subprocess import call
+
 
 class Paint(object):
-
     DEFAULT_BRUSH_SIZE = 5.0
     DEFAULT_COLOR = 'black'
 
@@ -30,6 +32,7 @@ class Paint(object):
         self.submit_button.grid(row=0, column=4)
 
         self.choose_size_button = Scale(self.root, from_=1, to=50, orient=HORIZONTAL)
+        self.choose_size_button.set(self.DEFAULT_BRUSH_SIZE)
         self.choose_size_button.grid(row=0, column=5)
 
         self.c = Canvas(self.root, bg='white', width=1200, height=600)
@@ -48,7 +51,6 @@ class Paint(object):
         self.c.bind('<B1-Motion>', self.paint)
         self.c.bind('<ButtonRelease-1>', self.reset)
 
-
     def use_brush(self):
         self.activate_button(self.brush_button)
 
@@ -62,15 +64,20 @@ class Paint(object):
     def erase_all(self):
         self.c.delete("all")
 
-    def submit_button(self):
-        self.filetosaveto = filedialog.asksaveasfile(mode='w', initialfile="output.png", defaultextension=".png",filetypes=(('Portable Network Graphics','*.png'),))
-        self.c.update()
-        self.filetosaveto.write(self.c.postscript())
-        ghostscript_convert_cmd = "gs -sDEVICE=png16m -dJPEGQ=100 -dNOPAUSE -dBATCH -dSAFER -r300 -sOutputFile=" + self.filetosaveto.name +" " + self.filetosaveto.name
-        os.system(ghostscript_convert_cmd)
-        
+    def getter(self, widget):
+        x = self.c.winfo_rootx()
+        y = self.c.winfo_rooty()
+        x1 = x + self.c.winfo_width()
+        y1 = y + self.c.winfo_height()
+        ImageGrab.grab().crop((x + 150, y + 150, x1 + 600, y1 + 600)).save("output.png")
 
-    #TODO: undo and redo
+    def submit_button(self):
+        self.getter(self.c)
+        detect_base_dir = "/Users/valentin/PycharmProjects/DoodleDetection"
+        call(['python', os.path.join(detect_base_dir, 'car_detect.py'),
+              '/Users/valentin/PycharmProjects/SketchAnne/output.png'])
+
+    # TODO: undo and redo
 
     def activate_button(self, some_button, eraser_mode=False):
         self.active_button.config(relief=RAISED)

@@ -7,6 +7,9 @@ from tkinter import *
 from tkinter.colorchooser import *
 from tkinter import filedialog
 
+from PIL import ImageGrab
+
+
 class Paint(object):
 
     DEFAULT_BRUSH_SIZE = 5.0
@@ -64,13 +67,11 @@ class Paint(object):
         self.c.delete("all")
 
     def submit_button(self):
-        left, top, width, height = self.c.bbox(ALL)
-        print(left, top, width, height)
-        filename = "pyscreeze.png"
-        #im2 = pyscreeze.screenshot(filename, region=(0, 0, 50, 50))
-        os.system("screencapture -w screen.png")
-        #filedialog.asksaveasfile(mode='w', defaultextension=".png",filetypes=(('Portable Network Graphics','*.png'),))
-
+        x = self.c.winfo_rootx()
+        y = self.c.winfo_rooty()
+        x1 = x + self.c.winfo_width()
+        y1 = y + self.c.winfo_height()
+        ImageGrab.grab().crop((x + 150, y + 150, x1 + 600, y1 + 600)).save("output.png")
 
     #TODO: undo and redo
 
