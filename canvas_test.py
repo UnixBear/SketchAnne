@@ -6,6 +6,7 @@ from tkinter.colorchooser import *
 from tkinter import filedialog
 import os
 from PIL import ImageGrab
+from subprocess import call
 
 
 class Paint(object):
@@ -31,6 +32,7 @@ class Paint(object):
         self.submit_button.grid(row=0, column=4)
 
         self.choose_size_button = Scale(self.root, from_=1, to=50, orient=HORIZONTAL)
+        self.choose_size_button.set(self.DEFAULT_BRUSH_SIZE)
         self.choose_size_button.grid(row=0, column=5)
 
         self.c = Canvas(self.root, bg='white', width=1200, height=600)
@@ -69,9 +71,11 @@ class Paint(object):
         y1 = y + self.c.winfo_height()
         ImageGrab.grab().crop((x + 150, y + 150, x1 + 600, y1 + 600)).save("output.png")
 
-
     def submit_button(self):
         self.getter(self.c)
+        detect_base_dir = "/Users/valentin/PycharmProjects/DoodleDetection"
+        call(['python', os.path.join(detect_base_dir, 'car_detect.py'),
+              '/Users/valentin/PycharmProjects/SketchAnne/output.png'])
 
     # TODO: undo and redo
 
