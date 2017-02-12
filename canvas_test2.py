@@ -5,14 +5,11 @@ from tkinter.colorchooser import *
 
 class Paint(object):
 
-    DEFAULT_PEN_SIZE = 5.0
+    DEFAULT_BRUSH_SIZE = 5.0
     DEFAULT_COLOR = 'black'
 
     def __init__(self):
         self.root = Tk()
-
-        self.pen_button = Button(self.root, text='pen', command=self.use_pen)
-        self.pen_button.grid(row=0, column=0)
 
         self.brush_button = Button(self.root, text='brush', command=self.use_brush)
         self.brush_button.grid(row=0, column=1)
@@ -38,12 +35,10 @@ class Paint(object):
         self.line_width = self.choose_size_button.get()
         self.color = self.DEFAULT_COLOR
         self.eraser_on = False
-        self.active_button = self.pen_button
+        self.active_button = self.brush_button
         self.c.bind('<B1-Motion>', self.paint)
         self.c.bind('<ButtonRelease-1>', self.reset)
 
-    def use_pen(self):
-        self.activate_button(self.pen_button)
 
     def use_brush(self):
         self.activate_button(self.brush_button)

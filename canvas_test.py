@@ -27,3 +27,4 @@ message = Label( master, text = "Press and Drag the mouse to draw" )
 message.pack( side = BOTTOM )
     
 mainloop()
+	
