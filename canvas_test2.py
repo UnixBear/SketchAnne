@@ -23,7 +23,7 @@ class Paint(object):
         self.eraser_button = Button(self.root, text='erase all', command=self.erase_all)
         self.eraser_button.grid(row=0, column=3)
 
-        self.choose_size_button = Scale(self.root, from_=1, to=10, orient=HORIZONTAL)
+        self.choose_size_button = Scale(self.root, from_=1, to=50, orient=HORIZONTAL)
         self.choose_size_button.grid(row=0, column=4)
 
         self.c = Canvas(self.root, bg='white', width=1200, height=600)
